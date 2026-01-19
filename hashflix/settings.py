@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 from django.conf.global_settings import DEFAULT_AUTO_FIELD
 
@@ -22,12 +23,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-@5c#9@x(a01f8%18icav%b_9@trskh8(&k#i7(6^w%ujku7%l#'
+TOKEN_CSRF = os.getenv('TOKEN_CSRF')
+if TOKEN_CSRF:
+    SECRET_KEY = TOKEN_CSRF
+    CSRF_TRUSTED_ORIGINS = ['https://projetohashflixdjango-production-6f9b.up.railway.app/']
+else:
+    SECRET_KEY = 'django-insecure-@5c#9@x(a01f8%18icav%b_9@trskh8(&k#i7(6^w%ujku7%l#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["https://projetohashflixdjango-production-6f9b.up.railway.app/", "localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -88,7 +94,6 @@ DATABASES = {
 }
 
 import dj_database_url
-import os
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 if DATABASE_URL:
