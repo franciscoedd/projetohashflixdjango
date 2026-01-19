@@ -28,7 +28,7 @@ if TOKEN_CSRF:
     SECRET_KEY = TOKEN_CSRF
     CSRF_TRUSTED_ORIGINS = ['https://projetohashflixdjango-production-6f9b.up.railway.app']
 else:
-    SECRET_KEY = 'django-insecure-@5c#9@x(a01f8%18icav%b_9@trskh8(&k#i7(6^w%ujku7%l#'
+    SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -91,18 +91,22 @@ WSGI_APPLICATION = 'hashflix.wsgi.application'
 # local (SQLite)
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'lzkfAIVXdwYTRrJlswdlyHFvKNAdDnqz',
+        'HOST': 'postgres-90qi.railway.internal',
+        'PORT': '5432',
     }
 }
 
 import dj_database_url
 
-DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = 'postgresql://postgres:lzkfAIVXdwYTRrJlswdlyHFvKNAdDnqz@shuttle.proxy.rlwy.net:19222/railway'
 if DATABASE_URL:
     # Railway/ Produção
     DATABASES = {
-        'default': dj_database_url.parse(default=DATABASE_URL, conn_max_age=1800)
+        'default': dj_database_url.config(default=DATABASE_URL, conn_max_age=1800)
     }
 
 
@@ -110,20 +114,20 @@ if DATABASE_URL:
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 
 AUTH_USER_MODEL = "filme.Usuario"
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
+#AUTH_PASSWORD_VALIDATORS = [
+#    {
+#        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+#    },
+#    {
+#        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+#    },
+#    {
+#        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+#    },
+#    {
+#        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+#    },
+#]
 
 
 # Internationalization
