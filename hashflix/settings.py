@@ -33,7 +33,9 @@ else:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["https://projetohashflixdjango-production-6f9b.up.railway.app/", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["projetohashflixdjango-production-6f9b.up.railway.app/", "localhost", "127.0.0.1"]
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 # Application definition
