@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 TOKEN_CSRF = os.getenv('TOKEN_CSRF')
 if TOKEN_CSRF:
     SECRET_KEY = TOKEN_CSRF
-    CSRF_TRUSTED_ORIGINS = ['https://projetohashflixdjango-production-6f9b.up.railway.app/']
+    CSRF_TRUSTED_ORIGINS = ['https://projetohashflixdjango-production-6f9b.up.railway.app']
 else:
     SECRET_KEY = 'django-insecure-@5c#9@x(a01f8%18icav%b_9@trskh8(&k#i7(6^w%ujku7%l#'
 
