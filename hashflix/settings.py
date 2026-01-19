@@ -87,21 +87,25 @@ WSGI_APPLICATION = 'hashflix.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
+import dj_database_url
 
-DATABASES = {
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+DATABASE_URL = os.environ.get("DATABASE_URL")
+
+if DATABASE_URL:
+    # Railway/ Produção
+    DATABASES = {
+        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=1800, ssl_require=True)
+    }
+else:
+    # local (SQLite)
+    DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-import dj_database_url
-
-DATABASE_URL = os.getenv("DATABASE_URL")
-if DATABASE_URL:
-    DATABASES = {
-        'default': dj_database_url.config(default=DATABASE_URL, conn_max_age=1800)
-    }
 
 
 # Password validation
@@ -140,20 +144,4 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATIC_ROOT = BASE_DIR / "staticfiles"
-
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
-
-MEDIA_URL = 'media/'
-
-MEDIA_ROOT = BASE_DIR / "media"
-
-LOGIN_REDIRECT_URL = 'filme:homefilmes'
-
-LOGIN_URL = 'filme:login'
-
-CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5'
-
-CRISPY_TEMPLATE_PACK = 'bootstrap5'
+STATIC_ROOT = BASE_DIR / "staticfil"
