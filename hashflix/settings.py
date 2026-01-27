@@ -16,10 +16,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 import os
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
-if not SECRET_KEY:
-    # Se estiver em desenvolvimento e a variável de ambiente não existir
-    SECRET_KEY = '2198849395921988393959'
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-dev-only')
 
 # CSRF
 CSRF_TRUSTED_ORIGINS = [
@@ -28,7 +25,7 @@ CSRF_TRUSTED_ORIGINS = [
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = ["projetohashflixdjango-production-6f9b.up.railway.app", "localhost", "127.0.0.1"]
 
