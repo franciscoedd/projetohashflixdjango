@@ -76,6 +76,7 @@ MIDDLEWARE = [
 ]
 
 from django.conf.global_settings import DEFAULT_AUTO_FIELD
+
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -86,7 +87,9 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Se quiser adicionar pastas extras de static
-STATICFILES_DIRS = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
 
 # Permite compressão e caching de arquivos estáticos
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
